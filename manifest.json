@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "id": "drunkleen.lock",
-  "name": "My Lock Screen",
+  "id": "omarchy.pixlock",
+  "name": "PixLock",
   "version": "1.0.0",
   "author": "Omarchy",
   "description": "Quickshell session lock with FIDO2 security-key, password, and fingerprint PAM flows.",
@@ -10,7 +10,7 @@
   ],
   "keepLoaded": true,
   "entryPoints": {
-    "service": "Service.qml"
+    "service": "pixlock.qml"
   },
   "omarchy": {
     "clonedFrom": "omarchy.lock"
