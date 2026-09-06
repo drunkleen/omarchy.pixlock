@@ -113,6 +113,15 @@ Item {
     if (!fido2CheckProc.running) fido2CheckProc.running = true
   }
 
+  function restartFido2AfterResume() {
+    if (!lockRequested) return
+
+    if (fido2Pam.active) fido2Pam.abort()
+    fido2Authenticating = false
+    refreshFido2Status()
+    fido2RetryTimer.restart()
+  }
+
   function logEvent(event) {
     lastEvent = event
     lastEventAt = new Date().toISOString()
@@ -453,6 +462,27 @@ Item {
         root.fido2Authenticating = false
       }
     }
+  }
+
+  // A PAM conversation started before suspend can be dead after resume even
+  // though the key is still inserted. Start a fresh conversation once logind
+  // reports that the system has resumed and the USB stack has settled.
+  Process {
+    id: sleepMonitorProc
+    command: ["dbus-monitor", "--system", "type='signal',sender='org.freedesktop.login1',interface='org.freedesktop.login1.Manager',member='PrepareForSleep'"]
+    running: true
+    stdout: SplitParser {
+      onRead: function(line) {
+        if (String(line).indexOf("boolean false") !== -1) resumeFido2Timer.restart()
+      }
+    }
+  }
+
+  Timer {
+    id: resumeFido2Timer
+    interval: 1500
+    repeat: false
+    onTriggered: root.restartFido2AfterResume()
   }
 
   Timer {
