@@ -21,6 +21,9 @@ Item {
   property bool syncingPasswordText: false
 
   readonly property string placeholderText: fido2Authenticating ? "Touch FIDO2 key…" : (fido2Present ? "Authenticate with FIDO2 key" : "Enter Password")
+  // Keep the lock-screen artwork self-contained so the plugin works even when
+  // the system wallpaper changes or is unavailable.
+  readonly property url bundledBackground: Qt.resolvedUrl("background.jpg")
   readonly property int fieldWidth: 381
   readonly property int fieldHeight: 67
   readonly property int outlineThickness: 3
@@ -111,7 +114,7 @@ Item {
     Image {
       id: wallpaper
       anchors.fill: parent
-      source: root.loadBackground ? root.fileUrl(root.backgroundPath) : ""
+      source: root.loadBackground ? root.bundledBackground : ""
       fillMode: Image.PreserveAspectCrop
       asynchronous: true
       cache: false

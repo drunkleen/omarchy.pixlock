@@ -2,6 +2,8 @@
 
 An Omarchy lock-screen plugin with a pixel-font clock, day/date, password authentication, fingerprint support, and FIDO2 security-key authentication.
 
+The repository includes `background.jpg`, which is used as the lock-screen wallpaper so the plugin does not depend on a separate system wallpaper path.
+
 When a registered FIDO2 key is present, the lock screen prompts for a touch and authenticates through `omarchy-lock-fido2`. When no key is present, it keeps the password field available. Password input remains automatically focused as a fallback.
 
 ## Install
