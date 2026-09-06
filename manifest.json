@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "omarchy.pixlock",
+  "id": "drunkleen.pixlock",
   "name": "PixLock",
   "version": "1.0.0",
-  "author": "Omarchy",
+  "author": "DrunkLeen",
   "description": "Quickshell session lock with FIDO2 security-key, password, and fingerprint PAM flows.",
   "kinds": [
     "service"
